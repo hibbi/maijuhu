@@ -1,0 +1,17 @@
+:root {
+  --columns: 6;
+  --gap: 2.5%;
+  --vw: 1vw;
+  --vh: 1vh;
+  --viewport-padding: 2em;
+  --column: calc((100vw - (var(--viewport-padding) * 2)) / var(--columns) - var(--gap));
+  --gaps: calc(var(--gap) * var(--columns) -1);
+}
+
+@media (min-width: 48em) {
+  :root {
+    --columns: 12;
+    --viewport-padding: 4em;
+    --gap: 2.25%;
+  }
+}

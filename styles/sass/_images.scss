@@ -1,0 +1,24 @@
+@import "gallery";
+
+figure {
+  margin: 0;
+}
+
+.navigation__item {
+  figure {
+    height: 25vw;
+    -o-object-fit: cover;
+    object-fit: cover;
+    width: 100%;
+  }
+  img {
+    height: 100%;
+    -o-object-fit: cover;
+    object-fit: cover;
+    width: 100%;
+  }
+}
+.item__landscape,
+.item__portrait {
+  cursor: pointer;
+}

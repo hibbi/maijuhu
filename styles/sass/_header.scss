@@ -1,0 +1,38 @@
+.site__header {
+  display: flex;
+  justify-content: space-between;
+  padding: var(--viewport-padding);
+}
+
+@include medium() {
+  .site__header {
+    padding: calc(var(--viewport-padding) / 2) var(--viewport-padding);
+  }
+}
+
+.site__title {
+  a {
+    border-bottom: .2rem solid var(--color-nero);
+  }
+  margin: 0;
+}
+
+.nav__list {
+  margin: 0;
+  padding: 0;
+}
+
+.nav__item {
+  text-align: right;
+  a {
+    border-bottom: .2rem solid transparent;
+  }
+
+}
+
+.nav__item_active {
+  a {
+    border-bottom: .2rem solid var(--color-nero);
+  }
+
+}

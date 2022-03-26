@@ -1,0 +1,15 @@
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-size: 1.6em;
+  background: var(--color-white-smoke);
+  color: var(--color-nero);
+}
+
+.container {
+  padding-left: var(--viewport-padding);
+  padding-right: var(--viewport-padding);
+  padding-bottom: var(--viewport-padding);
+}

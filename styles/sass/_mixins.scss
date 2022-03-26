@@ -1,0 +1,63 @@
+@mixin small() {
+  @media (min-width: 36em) {
+    @content;
+  }
+}
+
+@mixin medium() {
+  @media (min-width: 48em) {
+    @content;
+  }
+}
+
+@mixin large() {
+  @media (min-width: 62em) {
+    @content;
+  }
+}
+
+@mixin xlarge() {
+  @media (min-width: 75em) {
+    @content;
+  }
+}
+// =============================================================================
+// String Replace
+// =============================================================================
+
+@function str-replace($string, $search, $replace: "") {
+	$index: str-index($string, $search);
+
+	@if $index {
+		@return str-slice($string, 1, $index - 1) + $replace + str-replace(str-slice($string, $index + str-length($search)), $search, $replace);
+	}
+
+	@return $string;
+}
+
+// =============================================================================
+// Font Face
+// =============================================================================
+
+@mixin font-face($style-name, $file, $family, $category: '') {
+  $filepath: './fonts/' + $family + '/' + $file;
+
+  @font-face {
+    font-family: '#{$style-name}';
+    src: url($filepath + '.eot');
+    src: url($filepath + '.eot?#iefix') format('embedded-opentype'), url($filepath + '.woff')
+        format('woff'), url($filepath + '.ttf') format('truetype'), url($filepath + '.svg#' + $style-name + '')
+        format('svg');
+  }
+
+  %#{$style-name} {
+    font: {
+      @if $category != '' {
+        family: '#{$style-name}', #{$category};
+      } @else {
+        family: '#{$style-name}';
+        weight: normal;
+      }
+    }
+  }
+}

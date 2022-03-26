@@ -1,0 +1,120 @@
+.project__content {
+  display: flex;
+  flex-direction: column;
+}
+@media (min-width: 48em) {
+  .paragraph__grid {
+    flex: 0 0 calc((var(--column) * 6) + (var(--gap) * 5));
+    max-width: calc((var(--column) * 6) + (var(--gap) * 5));
+  }
+}
+.paragraph__grid {
+  font-size: 1.3rem;
+}
+.navigation__item {
+  position: relative;
+  display:flex;
+  align-items: center;
+  justify-content: center;
+}
+.single__project_navigation {
+  display: none,
+}
+@media (hover: hover) {
+  .single__project_navigation {
+    display: grid;
+    grid-template-columns: repeat(var(--columns), 1fr);
+    grid-column-gap: var(--gap);
+    grid-row-gap: 2em;
+  }
+  .navigation__item {
+    &:hover {
+      .navigation__title {
+        visibility: visible;
+        opacity: 1;
+        z-index: 2;
+      }
+    }
+  }
+}
+.navigation__title {
+  -webkit-transition: all .25s ease-out;
+  color: var(--color-white);
+  position: absolute;
+  background: var(--color-raisin-black);
+  visibility: hidden;
+  opacity: 0;
+  text-align: center;
+}
+.navigation__item {
+  &:nth-child(3n+1) {
+    grid-column: 1 / 5;
+  }
+  &:nth-child(3n+2) {
+    grid-column: 5 / 9;
+  }
+  &:nth-child(3n) {
+    grid-column: 9 / 13;
+  }
+}
+@media (hover: hover) {
+  @media (max-width: 48em) {
+    .navigation__item {
+      &:nth-child(odd) {
+        grid-column: 1 / 4;
+      }
+      &:nth-child(even) {
+        grid-column: 4 / 7;
+      }
+    }
+  }
+
+}
+
+.single__project {
+  margin-bottom: 2em;
+}
+
+.single__project_footer {
+  a {
+    span {
+      display: block;
+    }
+  }
+  display: flex;
+  justify-content: space-between;
+  padding: 2em 0 4em;
+  border-top: 0.2rem solid var(--color-nero);
+}
+
+.work__details {
+  text-align: center;
+  span {
+    display: block;
+    &:not(:first-child) {
+      font-size: 1.3rem;
+    }
+  }
+}
+
+@media (hover: hover) {
+  .item__landscape,
+  .item__portrait {
+    &:hover {
+      .work__details {
+        visibility: visible;
+        opacity: 1;
+      }
+    }
+  }
+  .work__details {
+    transition: all .25s ease-out;
+    text-align: left;
+    position: absolute;
+    visibility: hidden;
+    opacity: 0;
+    top: 1.25em;
+    left: 1.25em;
+    color: var(--color-white);
+  }
+}
