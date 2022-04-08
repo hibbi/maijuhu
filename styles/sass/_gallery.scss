@@ -100,9 +100,17 @@
   text-overflow: unset;
 }
 .gallery__grid {
-  display: grid;
-  grid-template-columns: repeat(var(--columns), 1fr);
-  grid-column-gap: var(--gap);
+  display: flex;
+  flex-direction: column;
+  row-gap: calc(var(--vw) * 6);
+}
+@media (min-width: 48em) {
+  .gallery__grid {
+    display: grid;
+    grid-template-columns: repeat(var(--columns), 1fr);
+    grid-column-gap: var(--gap);
+    grid-row-gap: calc(var(--vw) * 3);
+  }
 }
 
 .item__landscape {
@@ -115,6 +123,5 @@
 
 .item__landscape,
 .item__portrait {
-  margin: 1em 0;
   position: relative;
 }
