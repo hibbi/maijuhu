@@ -6,7 +6,7 @@ import { GET_SINGLE_PAGE_WITH_BLOCKS } from '../src/queries/Pages/single-page'
 import Block from "../components/Block";
 import { CMS_NAME, CMS_URL } from '../lib/constants'
 
-export default function Page ( { page }) {
+export default function Page ( { pages, page }) {
   const {title, blocks} = page
   return (
     <Layout>
@@ -43,10 +43,10 @@ export async function getStaticPaths() {
     console.log(err, "error on your side")
     return err
   })
-  const paths = data?.pages?.nodes?.map((page) => {
+  const paths = data?.pages?.nodes?.map((obj) => {
     return {
       params: {
-        slug: page.slug
+        slug: obj.slug
       }
     }
   })
