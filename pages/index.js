@@ -9,7 +9,6 @@ import Link from 'next/link'
 import Image from 'next/image'
 import App from '../components/App'
 import Layout from '../components/layout'
-import Pf from '../components/Portfolio'
 import { GET_ALL_POSTS } from '../src/queries/get_posts'
 import { client } from '../src/apollo/client'
 import { CMS_NAME, CMS_URL } from '../lib/constants'
@@ -32,6 +31,7 @@ export default function Homepage( { posts }) {
           <Link href={`/portfolio/${post.slug}`}>
             <a>
               <figure className="portfolio__figure">
+                { post.featuredImage ?
                 <Image
             src={post.featuredImage.node.sourceUrl}
             alt={post.featuredImage.node.altText }
@@ -40,6 +40,8 @@ export default function Homepage( { posts }) {
             layout="intrinsic"
             objectFit='cover'
                 />
+                : null
+              }
               </figure>
               <span className="grid__item_title">{post.title}</span>
             </a>

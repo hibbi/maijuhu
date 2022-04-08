@@ -46,14 +46,27 @@ export const BLOCKS_FIELD = gql`
         }
       }
       ... on CoreGalleryBlock {
-        attributes {
-          ... on CoreGalleryBlockAttributes {
-            ...GalleryBlockAttributes
+        innerBlocks {
+          ... on CoreImageBlock {
+            mediaItem {
+              nodes {
+                ...MediaImage
+              }
+            }
           }
         }
-        galleryImages {
-          ... on CoreGalleryBlockToMediaItemConnection {
-            ...GalleryImageDetails
+        mediaItems(first: 50) {
+          nodes {
+            ...MediaImage
+          }
+        }
+        attributes {
+          ... on CoreGalleryBlockAttributes {
+            columns
+            imageCrop
+            caption
+            wpId: anchor
+            wpClasses: className
           }
         }
       }
@@ -66,7 +79,7 @@ export const BLOCKS_FIELD = gql`
 `;
 
 export default function Block({ block }) {
-  const { attributes, name, innerBlocks, galleryImages } = block;
+  const { attributes, name, innerBlocks } = block;
 
   switch (name) {
     // TODO: Add support for these commented-out blocks.
@@ -92,9 +105,9 @@ export default function Block({ block }) {
     case "core/heading":
       return <HeadingBlock {...attributes} />;
     // case 'core/image':
-    //   return <ImageBlock {...attributes} key={index} />
+    //  return  <ImageBlock {...attributes} />
      case 'core/gallery':
-       return <GalleryBlock {...attributes} {...galleryImages} />
+      return <GalleryBlock {...attributes} innerBlocks={innerBlocks} />
     // case 'core/table':
     //   return <TableBlock {...attributes} key={index} />
     // case 'core/list':

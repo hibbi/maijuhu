@@ -11,7 +11,8 @@ import {CMS_NAME, CMS_URL} from '../../lib/constants'
 
 export default function PortfolioPost( { posts, post } ) {
   const { title, blocks } = post;
-  const sliced = _.sampleSize(posts.nodes, 2);
+  const nextPost = post.nextPost
+  const prevPost = post.previousPost
   return (
     <Layout>
         <Head>
@@ -20,33 +21,46 @@ export default function PortfolioPost( { posts, post } ) {
         <meta name="robots" content="all" />
         <meta property="og:title" content={title}/>
         <meta property="og:type" content="website" />
-        <meta property="og:url" content={CMS_URL} />
+        <meta property="og:url" content={CMS_URL + "/portfolio/" + post.slug} />
         <meta property="og:image" content={post.featuredImage.node.sourceUrl} />
       </Head>
       <div className="single__project">
         <h1 className="project__title">{title}</h1>
         <div className="project__content">
           {blocks
-            ? blocks.map((block, index) => <Block block={block} key={index} />)
+            ? blocks.map((block, index) =>
+           <Block block={block} key={index} /> )
             : null}
         </div>
       </div>
       <div className="single__project_footer">
+      { nextPost ?
         <div className="previous">
-          <Link href={`/portfolio/${sliced[0].slug}`} key={sliced[0].id}>
-          <a><span>Previous</span><span>project</span></a>
-          </Link>
+
+                    <Link href={`/portfolio/${nextPost.node.slug}` }>
+                    <a><span>Previous</span><span>project</span></a>
+                    </Link>
         </div>
+        :
+        <div className="previous not-found">
+          <span>Previous</span><span>project</span>
+          </div>
+}
         <div className="frontpage">
           <Link href="/">
             <a style={{textAlign: "center"}}><span>Front</span><span>page</span></a>
           </Link>
         </div>
+        { prevPost ?
         <div className="next">
-          <Link href={`/portfolio/${sliced[1].slug}`} key={sliced[1].id}>
+                    <Link href={`/portfolio/${prevPost.node.slug}` }>
             <a style={{textAlign: "right"}}><span>Next</span><span>project</span></a>
           </Link>
         </div>
+        : <div className="next not-found">
+          <span>Next</span><span>project</span>
+          </div>
+        }
       </div>
       <div className="single__project_navigation">
         { posts.nodes.map((single) => (

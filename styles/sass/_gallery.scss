@@ -109,6 +109,10 @@
   grid-column: 1 / 9;
 }
 
+.item__portrait {
+  grid-column: 3 / 9;
+}
+
 .item__landscape,
 .item__portrait {
   margin: 1em 0;

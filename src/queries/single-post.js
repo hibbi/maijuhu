@@ -12,6 +12,36 @@ query GetSinglePostWithBlocks($slug: ID!) {
         sourceUrl
       }
     }
+    previousPost {
+      node {
+        ... on Post {
+          id
+          title
+          uri
+          slug
+          featuredImage {
+            node {
+              sourceUrl
+            }
+          }
+        }
+      }
+    }
+    nextPost {
+      node {
+        ... on Post {
+          id
+          title
+          uri
+          slug
+          featuredImage {
+            node {
+              sourceUrl
+            }
+          }
+        }
+      }
+    }
     ...BlocksField
     }
   }

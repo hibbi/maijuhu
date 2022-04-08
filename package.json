@@ -2,7 +2,7 @@
   "private": true,
   "scripts": {
     "dev": "next",
-    "build": "next build",
+    "build": "next build && next export",
     "start": "next start"
   },
   "dependencies": {
@@ -29,5 +29,9 @@
     "eslint": "^8.10.0",
     "eslint-config-wordpress": "^2.0.0",
     "postcss": "8.4.5"
-  }
+  },
+  "browserslist": [
+    "last 2 versions",
+    "> 1%"
+  ]
 }

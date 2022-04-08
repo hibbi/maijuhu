@@ -46,6 +46,6 @@ module.exports = {
     return config;
   },
   images: {
-    domains: ['maijuhukkanen.com', 'secure.gravatar.com'],
+    domains: ['back.maijuhukkanen.com']
   },
 };

@@ -8,7 +8,6 @@ import { ApolloProvider } from '@apollo/client'
 import { useApollo } from '../src/apollo/'
 import 'react-image-lightbox/style.css';
 import '../styles/sass/global.scss'
-import Layout from '../components/layout'
 
 export default function MyApp({ Component, pageProps }) {
   const apolloClient = useApollo(pageProps.initialApolloState)

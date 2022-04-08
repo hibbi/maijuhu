@@ -76,6 +76,12 @@
 }
 
 .single__project_footer {
+  .not-found {
+    span {
+      display: block;
+      color: gray;
+    }
+  }
   a {
     span {
       display: block;

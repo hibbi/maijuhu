@@ -4,98 +4,84 @@ import Image from 'next/image'
 import Lightbox from 'react-image-lightbox';
 
 export const GALLERY_BLOCK_ATTRIBUTES = gql`
-  fragment GalleryBlockAttributes on CoreGalleryBlockAttributes {
-    ids
-    align
-    anchor
-    columns
-    images {
-      id
-      caption
-      alt
-      url
-    }
+fragment MediaImage on MediaItem {
+  sourceUrl(size: LARGE)
+  sizes(size: LARGE)
+  srcSet(size: LARGE)
+  src: sourceUrl(size: LARGE)
+  id
+  databaseId
+  title
+  altText
+  caption
+  mediaDetails {
+    height
+    width
   }
-  fragment GalleryImageDetails on CoreGalleryBlockToMediaItemConnection {
-    nodes {
-      altText
-      caption
-      description
-      mediaItemId
-      mediaItemUrl
-      mediaDetails {
-        height
-        width
-      }
-    }
-  }
+}
 `;
 
 const GalleryBlock = ({
-  ids,
-  caption,
-  images,
-  columns,
-  linkTarget,
-  linkTo,
-  nodes
+  innerBlocks
 }) => {
-    const [photoIndex, setPhotoIndex] = useState(0)
-    const [isOpen, setIsOpen] = useState(false)
-    return (
-      <div className="gallery__grid">
-          {nodes.map((img, index) => {
-            // setup onclick function to handle state change
-            function updateOnClick() {
-              setPhotoIndex(index)
-              setIsOpen(true)
-            }
-            return (
-              <figure
-                key={index}
-                onClick={updateOnClick}
-                className={ img.mediaDetails.width > img.mediaDetails.height ? "item__landscape" : "item__portrait" }
-              >
-                  <Image
-                  src={img.mediaItemUrl}
-                  alt={img.altText}
-                  width={img.mediaDetails.width}
-                  height={img.mediaDetails.height}
-                  />
-                  <div className="work__details">
-                    { img.caption != null ? img.caption.split(',').map((addr, idx) => ( <span key={idx}>{addr.replace(/(<([^>]+)>)/gi, "")}</span> )) : null }
-                  </div>
-              </figure>
-            )
-          })}
-        {isOpen && (
-        <Lightbox
-          mainSrc={nodes[photoIndex].mediaItemUrl}
-          nextSrc={
-            nodes[(photoIndex + 1) % nodes.length]
-              .mediaItemUrl
+  const imageBlocks = innerBlocks;
+  const [photoIndex, setPhotoIndex] = useState(0)
+  const [isOpen, setIsOpen] = useState(false)
+  return (
+    <div className="gallery__grid">
+        {imageBlocks.map((img, index) => {
+          // setup onclick function to handle state change
+          function updateOnClick() {
+            setPhotoIndex(index)
+            setIsOpen(true)
           }
-          prevSrc={
-            nodes[
-              (photoIndex + nodes.length - 1) %
-                nodes.length
-            ].mediaItemUrl
-          }
-          onCloseRequest={() => setIsOpen(false)}
-          onMovePrevRequest={() =>
-            setPhotoIndex(
-              (photoIndex + nodes.length - 1) %
-                nodes.length
-            )
-          }
-          onMoveNextRequest={() =>
-            setPhotoIndex((photoIndex + 1) % nodes.length)
-          }
-          enableZoom={false}
-          imageTitle={ nodes[photoIndex].caption != null ? nodes[photoIndex].caption.split(',').map((addr, idx) => ( <span key={idx}>{addr.replace(/(<([^>]+)>)/gi, "")}</span> )) : null }
-        />
-      )}
-      </div>
-    )
+          return (
+            <figure
+              key={index}
+              onClick={updateOnClick}
+              className={ img.mediaItem.nodes[0].mediaDetails.width > img.mediaItem.nodes[0].mediaDetails.height ? "item__landscape" : "item__portrait" }
+            >
+                <Image
+                src={img.mediaItem.nodes[0].sourceUrl}
+                alt={img.mediaItem.nodes[0].altText}
+                width={img.mediaItem.nodes[0].mediaDetails.width}
+                height={img.mediaItem.nodes[0].mediaDetails.height}
+                />
+                <div className="work__details">
+                  { img.mediaItem.nodes[0].caption != null ? img.mediaItem.nodes[0].caption.split('|').map((addr, idx) => ( <span key={idx}>{addr.replace(/(<([^>]+)>)/gi, "")}</span> )) : null }
+                </div>
+            </figure>
+          )
+        })}
+      {isOpen && (
+      <Lightbox
+        mainSrc={imageBlocks[photoIndex].mediaItem.nodes[0].sourceUrl}
+        nextSrc={
+          imageBlocks[(photoIndex + 1) % imageBlocks.length]
+            .mediaItem.nodes[0].sourceUrl
+        }
+        prevSrc={
+          imageBlocks[
+            (photoIndex + imageBlocks.length - 1) %
+            imageBlocks.length
+          ].mediaItem.nodes[0].sourceUrl
+        }
+        onCloseRequest={() => setIsOpen(false)}
+        onMovePrevRequest={() =>
+          setPhotoIndex(
+            (photoIndex + imageBlocks.length - 1) %
+            imageBlocks.length
+          )
+        }
+        onMoveNextRequest={() =>
+          setPhotoIndex((photoIndex + 1) % imageBlocks.length)
+        }
+        enableZoom={false}
+        imageTitle={ imageBlocks[photoIndex].mediaItem.nodes[0].caption != null ? imageBlocks[photoIndex].mediaItem.nodes[0].caption.split('|').map((addr, idx) => ( <span key={idx}>{addr.replace(/(<([^>]+)>)/gi, "")}</span> )) : null }
+      />
+    )}
+    </div>
+  )
+
 }
 export default GalleryBlock
