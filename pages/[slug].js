@@ -31,8 +31,17 @@ export default function Page ( { page }) {
   )
 }
 export async function getStaticPaths() {
-  const { data, error } = await client.query({
+  const { data } = await client
+  .query({
     query: GET_ALL_PAGES
+  })
+  .then((res) => {
+    console.log(res)
+    return res
+  })
+  .catch((err) => {
+    console.log(err, "error on your side")
+    return err
   })
   const paths = data?.pages?.nodes?.map((page) => {
     return {
@@ -47,7 +56,6 @@ export async function getStaticPaths() {
   }
 }
 export async function getStaticProps({params}) {
-  console.log(params)
   const { data } = await client.query({
      query: GET_SINGLE_PAGE_WITH_BLOCKS,
      variables: { slug: params.slug  },
