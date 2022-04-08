@@ -41,7 +41,7 @@ const GalleryBlock = ({
               onClick={updateOnClick}
               className={ img.mediaItem.nodes[0].mediaDetails.width > img.mediaItem.nodes[0].mediaDetails.height ? "item__landscape" : "item__portrait" }
             >
-                <Image
+                <img
                 src={img.mediaItem.nodes[0].sourceUrl}
                 alt={img.mediaItem.nodes[0].altText}
                 width={img.mediaItem.nodes[0].mediaDetails.width}

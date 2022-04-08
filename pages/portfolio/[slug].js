@@ -68,13 +68,11 @@ export default function PortfolioPost( { posts, post } ) {
           <a className="navigation__item">
             <span className="navigation__title">{single.title}</span>
           <figure>
-            <Image
+            <img
             src={single.featuredImage.node.sourceUrl}
             alt={single.featuredImage.node.altText }
             width={single.featuredImage.node.mediaDetails.width}
             height={single.featuredImage.node.mediaDetails.height}
-            layout="fill"
-            objectFit='cover'
             />
           </figure></a>
           </Link>
