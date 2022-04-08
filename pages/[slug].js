@@ -34,7 +34,7 @@ export async function getStaticPaths() {
   const { data, error } = await client.query({
     query: GET_ALL_PAGES
   })
-  const paths = data.pages.nodes.map((page) => {
+  const paths = data?.pages?.nodes?.map((page) => {
     return {
       params: {
         slug: page.slug
@@ -55,7 +55,7 @@ export async function getStaticProps({params}) {
 
   return {
      props: {
-        page: data.page,
+        page: data?.page,
      },
      revalidate: 300
   };
