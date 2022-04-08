@@ -43,10 +43,11 @@ export async function getStaticPaths() {
   })
   return {
     paths,
-    fallback: 'blocking'
+    fallback: false
   }
 }
 export async function getStaticProps({params}) {
+  console.log(params)
   const { data } = await client.query({
      query: GET_SINGLE_PAGE_WITH_BLOCKS,
      variables: { slug: params.slug  },
