@@ -31,7 +31,7 @@ export default function Page ( { page }) {
   )
 }
 export async function getStaticPaths() {
-  const { data } = await client.query({
+  const { data, error } = await client.query({
     query: GET_ALL_PAGES
   })
   const paths = data.pages.nodes.map((page) => {
@@ -43,7 +43,7 @@ export async function getStaticPaths() {
   })
   return {
     paths,
-    fallback: false
+    fallback: 'blocking'
   }
 }
 export async function getStaticProps({params}) {
