@@ -17,6 +17,12 @@
   top: 2em;
   right: 2em;
 }
+
+.ril__closeButton,
+.ril__navButtons {
+  cursor: url("../../public/images/muste_36x36.png")10 31, auto;
+}
+
 .ril__closeButton {
   background: url('../../public/images/close.png') no-repeat center;
   width: 2.6rem;
