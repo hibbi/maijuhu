@@ -41,7 +41,6 @@
   -webkit-transition: all .25s ease-out;
   color: var(--color-white);
   position: absolute;
-  background: var(--color-raisin-black);
   visibility: hidden;
   opacity: 0;
   text-align: center;
@@ -95,6 +94,11 @@
 
 .work__details {
   text-align: center;
+  color: var(--color-white);
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 1.25em;
   span {
     display: block;
     &:not(:first-child) {
@@ -114,6 +118,8 @@
     }
   }
   .work__details {
+    transform: translateY(0);
+    padding:0;
     transition: all .25s ease-out;
     text-align: left;
     position: absolute;
