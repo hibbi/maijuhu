@@ -4,8 +4,8 @@ export const AUTH = `gql
 mutation LoginUser {
   login(
     input: {clientMutationId: "uniqueId", 
-      username: "samuli__admin",
-      password: "Xowl9*MexaSalb"}
+      username: "",
+      password: ""}
   ) {
     authToken
     clientMutationId
